@@ -7,6 +7,7 @@ import (
 	"net"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/spf13/cobra"
 )
@@ -25,7 +26,7 @@ var knockCmd = &cobra.Command{
 			return errors.New("Invalid port")
 		}
 		address := fmt.Sprintf("%s:%d", host, portInt)
-		conn, err := net.Dial("tcp", address)
+		conn, err := net.DialTimeout("tcp", address, time.Second)
 		if err != nil {
 			log.Printf("Fail to connect %s\n", address)
 			return err
